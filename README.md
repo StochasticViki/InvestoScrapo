@@ -7,13 +7,13 @@ A fast, multi-threaded web scraper to collect historical financial data from Inv
 To install with pip on macOS or Linux, run:
 
 ```bash
-    python3 -m pip install investoscrapo
-
+python3 -m pip install investoscrapo
+```
 To install with pip on Windows, run:
 
 ```bash
-    py -m pip install investoscrapo
-
+py -m pip install investoscrapo
+```
 ## Quickstart Guide
 
 ```bash
@@ -25,8 +25,7 @@ search_results = client.Search(query)
 prices = client.Download_Historical(search_results, "2020-01-01", "2024-01-01")
 
 print(prices.head())
-
-
+```
 ## Contribute
 
 If you'd like to contribute to InvestoScrapo, check out https://github.com/StochasticViki/investoscrapo
