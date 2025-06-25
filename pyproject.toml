@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "InvestoScrapo"
+authors = [
+    {name = "Vikram Sarkar", email = "vikigamer21@gmail.com"},
+]
+description = "A fast, multi-threaded web scraper to collect historical financial data from Investing.com, built with curl_cffi and pandas."
+readme = "README.md"
+# keywords = ["TODO_KEYWORD_1", "TODO_KEYWORD_2"]
+license = {file = "LICENSE"}
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+requires-python = ">=3.7"
+dynamic = ["version"]
+
+[project.urls]
+"Homepage" = "https://github.com/StochasticViki/investoscrapo"
+"Bug Tracker" = "https://github.com/StochasticViki/investoscrapo/issues"
+
+[tool.setuptools.dynamic]
+version = {attr = "investoscrapo.__version__"}
