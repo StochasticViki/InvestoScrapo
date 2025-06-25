@@ -12,7 +12,7 @@ python3 -m pip install investoscrapo
 To install with pip on Windows, run:
 
 ```bash
-py -m pip install investoscrapo
+python -m pip install investoscrapo
 ```
 ## Quickstart Guide
 
