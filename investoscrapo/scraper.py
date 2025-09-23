@@ -5,9 +5,9 @@ import pandas as pd
 from concurrent.futures import ThreadPoolExecutor, ALL_COMPLETED, as_completed, wait
 import random
 from bs4 import BeautifulSoup
-from utils.logger import get_logger
-from configs.constants import *
-from helper import *
+from investoscrapo.utils.logger import get_logger
+from investoscrapo.configs.constants import *
+from investoscrapo.helper import *
 
 
 

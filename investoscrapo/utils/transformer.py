@@ -4,7 +4,7 @@ import numpy as np
 import openpyxl
 from openpyxl import Workbook
 from functools import reduce
-from configs.constants import *
+from investoscrapo.configs.constants import *
 
 import pandas as pd
 

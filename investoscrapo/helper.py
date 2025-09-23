@@ -1,5 +1,5 @@
 import random
-from configs.constants import *
+from investoscrapo.configs.constants import *
 import time
 
 
