@@ -2,3 +2,5 @@ numpy
 openpyxl
 pandas
 curl-cffi
+beautifulsoup4
+requests
