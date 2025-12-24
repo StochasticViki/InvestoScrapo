@@ -4,3 +4,5 @@ pandas
 curl-cffi
 beautifulsoup4
 requests
+yfin_search
+yahooquery
