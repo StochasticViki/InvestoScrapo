@@ -1,0 +1,16 @@
+[theme]
+base = "dark"
+
+# Neon cyan / blue accent (charts, buttons, pills)
+primaryColor = "#d369fa"
+
+# Deep navy / HUD background
+backgroundColor = "#050B14"
+
+# Panels, containers, side areas
+secondaryBackgroundColor = "#0B1C2D"
+
+# Main text
+textColor = "#D6F4FF"
+
+font = "monospace"

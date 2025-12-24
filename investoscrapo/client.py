@@ -14,5 +14,5 @@ class InvestingClient():
     
     def Download_Historical(self, selected_list_dicts: list[dict], start_date: str, end_date: str) -> pd.DataFrame:
         raw = self.scraper.threaded_request(selected_list_dicts, start_date, end_date)
-        
-        return raw
+        clean_df = build_full_panel_with_ids(raw)
+        return clean_df

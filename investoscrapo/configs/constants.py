@@ -18,4 +18,10 @@ delay_range = (2, 5)
 
 max_attempts = 3
 
-keep_cols = ["rowDate", "last_closeRaw", "symbol"]
+keep_cols = [
+    "rowDate",
+    "last_closeRaw",
+    "volumeRaw",
+    "symbol",
+    "instrument_id",
+]

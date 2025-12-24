@@ -8,25 +8,62 @@ from investoscrapo.configs.constants import *
 
 import pandas as pd
 
-def clean_dataframe(raw_df: pd.DataFrame) -> pd.DataFrame:
-    # Step 1: Split the wide dataframe into chunks of 3 columns (rowDate, last_closeRaw, symbol)
-    dfs = []
-    n_cols_per_stock = len(keep_cols)
+import pandas as pd
 
-    for i in range(0, raw_df.shape[1], n_cols_per_stock):
-        stock_df = raw_df.iloc[:, i:i + n_cols_per_stock].copy()
-        stock_df.columns = ["rowDate", "last_closeRaw", "symbol"]
+KEEP_COLS = [
+    "rowDate",
+    "last_closeRaw",
+    "volumeRaw",
+    "symbol",
+    "instrument_id",
+]
 
-        # Get the stock ticker (assumes same symbol in all rows)
-        ticker = stock_df["symbol"].iloc[1]
+def build_full_panel_with_ids(dfs):
+    """
+    Build a time-aligned panel with MultiIndex columns:
+      level 0: data field
+      level 1: symbol (ticker)
+    Includes static fields (symbol, instrument_id) repeated over time.
+    """
 
-        # Rename 'last_closeRaw' to the ticker name
-        stock_df = stock_df[["rowDate", "last_closeRaw"]]
-        stock_df.rename(columns={"last_closeRaw": ticker}, inplace=True)
+    panels = []
 
-        dfs.append(stock_df)
- 
-    df_merged = reduce(lambda left, right: pd.merge(left, right, on="rowDate"), dfs)
+    for df in dfs:
+        # 1. Keep only required columns
 
-    return df_merged
-    
+        # 2. Type cleaning
+        df["rowDate"] = pd.to_datetime(df["rowDate"], format="%b %d, %Y")
+        df["last_closeRaw"] = df["last_closeRaw"].astype(float)
+        df["volumeRaw"] = df["volumeRaw"].astype(float)
+
+        # 3. Extract identifiers (constant per DF)
+        symbol = df["symbol"].iloc[0]
+        instrument_id = df["instrument_id"].iloc[0]
+
+        # 4. Set date index
+        df = df.set_index("rowDate")
+
+        # 5. Build wide block INCLUDING static fields
+        wide = pd.DataFrame(
+            {
+                ("last_closeRaw", symbol): df["last_closeRaw"],
+                ("volumeRaw", symbol): df["volumeRaw"],
+                ("symbol", symbol): symbol,
+                ("instrument_id", symbol): instrument_id,
+            },
+            index=df.index,
+        )
+
+        panels.append(wide)
+
+    # 6. Concatenate all tickers horizontally
+    panel = pd.concat(panels, axis=1).sort_index()
+
+    # 7. Ensure proper MultiIndex
+    panel.columns = pd.MultiIndex.from_tuples(
+        panel.columns, names=["field", "symbol"]
+    )
+
+    return panel
+
+
